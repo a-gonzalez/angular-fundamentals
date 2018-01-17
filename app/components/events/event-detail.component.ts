@@ -16,8 +16,9 @@ let event_detail_component = {
 @Component(event_detail_component)
 export class EventDetailComponent implements OnInit
 {
-	public event: IEvent;
+	event: IEvent;
 	addMode: boolean;
+	filterBy: string = "all";
 
 	constructor(private router: ActivatedRoute, private service: EventService)
 	{
@@ -57,5 +58,10 @@ export class EventDetailComponent implements OnInit
 		this.service.update(this.event);
 
 		this.addMode = false;
+	}
+
+	filter(by: string)
+	{
+		this.filterBy = by;
 	}
 }

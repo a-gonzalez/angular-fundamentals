@@ -28,6 +28,10 @@ import {
 	UserService
 } from "./components/services/index";
 
+import {
+	DurationPipe
+} from "./components/pipes/index";
+
 import { CollapsibleWellComponent } from "./components/collapsible-well.component";
 
 var app_module = {
@@ -46,6 +50,7 @@ var app_module = {
 		EventCreateComponent,
 		SessionCreateComponent,
 		SessionListComponent,
+		DurationPipe,
 		Error404Component,
 		CollapsibleWellComponent
 	],

@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component } from "@angular/core";
 
 let collapsible_well_component = {
 	selector: "collapsible-well",
