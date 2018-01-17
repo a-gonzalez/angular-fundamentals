@@ -3,6 +3,14 @@ import { Pipe, PipeTransform } from "@angular/core";
 @Pipe({name: "duration"})
 export class DurationPipe implements PipeTransform
 {
+	private durations: string[] = [
+		"",
+		"Half Hour",
+		"One Hour",
+		"Half Day",
+		"Full Day"
+	];
+
 	constructor()
 	{
 		console.info("DurationPipe ctor");
@@ -12,8 +20,8 @@ export class DurationPipe implements PipeTransform
 	{
 		console.log("duration: ", value);
 
-		let result: string = null;
-		switch(value)
+		let result: string = this.durations[value];
+		/*switch(value)
 		{
 			case 1:
 			{
@@ -35,7 +43,7 @@ export class DurationPipe implements PipeTransform
 			{
 				result = value.toString(); break;
 			}
-		}
+		}*/
 		return result;
 	}
 }

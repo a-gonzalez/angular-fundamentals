@@ -19,6 +19,7 @@ export class EventDetailComponent implements OnInit
 	event: IEvent;
 	addMode: boolean;
 	filterBy: string = "all";
+	sortBy: string = "name";
 
 	constructor(private router: ActivatedRoute, private service: EventService)
 	{
@@ -63,5 +64,10 @@ export class EventDetailComponent implements OnInit
 	filter(by: string)
 	{
 		this.filterBy = by;
+	}
+
+	sort(by: string)
+	{
+		this.sortBy = by;
 	}
 }

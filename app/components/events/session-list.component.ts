@@ -12,6 +12,7 @@ export class SessionListComponent implements OnInit, OnChanges
 {
 	@Input() sessions: ISession[];
 	@Input() filterBy: string;
+	@Input() sortBy: string;
 	sessions_filtered: ISession[] = [];
 
 	constructor()
@@ -29,6 +30,7 @@ export class SessionListComponent implements OnInit, OnChanges
 		if (this.sessions != undefined)
 		{
 			this.filterSessions(this.filterBy);
+			this.sortBy === "name" ? this.sessions_filtered.sort(this.sortByNameAsc) : this.sessions_filtered.sort(this.sortByVotesDesc);
 		}
 	}
 
@@ -44,5 +46,25 @@ export class SessionListComponent implements OnInit, OnChanges
 				return session.level.toLocaleLowerCase() == filter;
 			});
 		}
+	}
+
+	private sortByNameAsc(a: ISession, b: ISession): number
+	{
+		let result: number = 0;
+
+		if (a.name > b.name)
+		{
+			result = 1;
+		}
+		else if (a.name < b.name)
+		{
+			result = -1;
+		}
+		return result;
+	}
+
+	private sortByVotesDesc(a: ISession, b: ISession)
+	{
+		return a.voters.length - b.voters.length;
 	}
 }
