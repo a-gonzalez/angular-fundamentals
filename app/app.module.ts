@@ -28,6 +28,8 @@ import {
 	UserService
 } from "./components/services/index";
 
+import { CollapsibleWellComponent } from "./components/collapsible-well.component";
+
 var app_module = {
 	imports: [
 		BrowserModule,
@@ -44,7 +46,8 @@ var app_module = {
 		EventCreateComponent,
 		SessionCreateComponent,
 		SessionListComponent,
-		Error404Component
+		Error404Component,
+		CollapsibleWellComponent
 	],
 	providers: [
 		EventService,
