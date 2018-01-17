@@ -1,0 +1,23 @@
+
+.nav.navbar-nav
+{
+	font-size: 15px;
+}
+
+li > .active
+{
+	color: #f97924;
+}
+
+#searchForm
+{
+	margin-right: 100px;
+}
+
+@media (max-width: 1200px)
+{
+	#searchForm
+	{
+		display: none;
+	}
+}
