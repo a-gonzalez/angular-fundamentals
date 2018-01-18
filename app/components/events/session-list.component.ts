@@ -65,6 +65,6 @@ export class SessionListComponent implements OnInit, OnChanges
 
 	private sortByVotesDesc(a: ISession, b: ISession)
 	{
-		return a.voters.length - b.voters.length;
+		return b.voters.length - a.voters.length;
 	}
 }
