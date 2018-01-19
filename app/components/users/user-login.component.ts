@@ -1,8 +1,9 @@
-import { Component } from "@angular/core";
+import { Component, Inject } from "@angular/core";
 import { Router } from "@angular/router";
 
-import { ToastService } from "../../components/services/toast.service";
+//import { ToastService } from "../../components/services/toast.service";
 import { UserService } from "../../components/services/user.service";
+import { Toastr, TOASTR_TOKEN } from "../services/index";
 
 let user_login_component = {
 	selector: "user-login",
@@ -13,7 +14,7 @@ let user_login_component = {
 @Component(user_login_component)
 export class UserLoginComponent
 {
-	constructor(private toast: ToastService, private router: Router, private auth: UserService)
+	constructor(@Inject(TOASTR_TOKEN) private toast: Toastr, private router: Router, private auth: UserService)
 	{
 		console.info("UserLoginComponent ctor");
 	}

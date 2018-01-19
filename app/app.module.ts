@@ -22,7 +22,8 @@ import {
 
 import {
 	EventService,
-	ToastService,
+	TOASTR_TOKEN,
+	Toastr,
 	EventListResolverService,
 	EventRouteActivatorService,
 	UserService
@@ -56,13 +57,18 @@ var app_module = {
 	],
 	providers: [
 		EventService,
-		ToastService,
+		{
+			provide: TOASTR_TOKEN,
+			useValue: toastr
+		},
 		EventRouteActivatorService,
 		EventListResolverService,
 		UserService
 	],
 	bootstrap: [AppComponent]
 };
+
+declare let toastr: Toastr;
 
 @NgModule(app_module)
 export class AppModule

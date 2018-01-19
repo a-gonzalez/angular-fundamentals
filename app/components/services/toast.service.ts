@@ -1,8 +1,16 @@
-import { Injectable } from "@angular/core";
+import { OpaqueToken } from "@angular/core";
+//import { Injectable } from "@angular/core";
 
-declare let toastr: any;
+export let TOASTR_TOKEN = new OpaqueToken("toastr");
 
-@Injectable()
+export interface Toastr
+{
+	success(message: string, title?: string): void;
+	info(message: string, title?: string): void;
+	warning(message: string, title?: string): void;
+	error(message: string, title?: string): void;
+}
+/*@Injectable()
 export class ToastService
 {
 	constructor()
@@ -29,4 +37,4 @@ export class ToastService
 	{
 		toastr.error(message, title);
 	}
-}
+}*/
