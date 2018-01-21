@@ -1,9 +1,13 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
-import { ToastService } from "../../components/services/toast.service";
-import { UserService } from "../../components/services/user.service";
+import {
+	TOASTR_TOKEN,
+	Toastr,
+	UserService
+} from "../../components/services/index";
+//import { UserService } from "../../components/services/user.service";
 
 let user_profile_component = {
 	selector: "user-profile",
@@ -18,7 +22,7 @@ export class UserProfileComponent implements OnInit
 	private lastname: FormControl;
 	private firstname: FormControl;
 
-	constructor(private router: Router, private toast: ToastService, private auth: UserService)
+	constructor(private router: Router, @Inject(TOASTR_TOKEN) private toast: Toastr, private auth: UserService)
 	{
 		console.info("UserProfileComponent ctor");
 	}

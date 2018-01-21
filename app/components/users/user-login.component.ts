@@ -1,9 +1,11 @@
 import { Component, Inject } from "@angular/core";
 import { Router } from "@angular/router";
 
-//import { ToastService } from "../../components/services/toast.service";
-import { UserService } from "../../components/services/user.service";
-import { Toastr, TOASTR_TOKEN } from "../services/index";
+import {
+	TOASTR_TOKEN,
+	Toastr,
+	UserService
+} from "../../components/services/index";
 
 let user_login_component = {
 	selector: "user-login",
@@ -39,7 +41,7 @@ export class UserLoginComponent
 			}
 			else
 			{
-				this.toast.error("User was not authenticated.", "Login");
+				//this.toast.error("User was not authenticated.", "Login");
 			}
 		}
 	}

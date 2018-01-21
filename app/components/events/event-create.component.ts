@@ -1,8 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Inject } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 
-import { ToastService } from "../../components/services/toast.service";
+//import { Toastr, TOASTR_TOKEN } from "../../components/services/index";
 import { EventService } from "../../components/services/event.service";
 
 import { IEvent } from "../models/event.interface";
@@ -19,7 +19,7 @@ export class EventCreateComponent implements OnInit
 	private isDirty: boolean = true;
 	//private event: any;
 
-	constructor(private service: EventService, private router: Router, private toast: ToastService)
+	constructor(private service: EventService, private router: Router/*, @Inject(TOASTR_TOKEN) private toast: Toastr*/)
 	{
 		console.info("EventCreateComponent ctor");
 	}
@@ -51,7 +51,7 @@ export class EventCreateComponent implements OnInit
 	{
 		this.service.save(values);
 		this.isDirty = false;
-		this.toast.success("Event was saved successfully.", "Save");
+		//this.toast.success("Event was saved successfully.", "Save");
 		this.router.navigate(["events"]);
 	}
 }

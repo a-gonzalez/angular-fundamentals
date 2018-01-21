@@ -22,11 +22,12 @@ import {
 
 import {
 	EventService,
-	TOASTR_TOKEN,
-	Toastr,
 	EventListResolverService,
 	EventRouteActivatorService,
-	UserService
+	UserService,
+	Toastr,
+	TOASTR_TOKEN,
+	JQUERY_TOKEN
 } from "./components/services/index";
 
 import {
@@ -34,6 +35,11 @@ import {
 } from "./components/pipes/index";
 
 import { CollapsibleWellComponent } from "./components/collapsible-well.component";
+import { SimpleModalComponent } from "./components/simple-modal.component";
+import { ModalTriggerDirective } from "./components/directives/modal-trigger.directive";
+
+declare let toastr: Toastr;
+declare let jQuery: Object;
 
 var app_module = {
 	imports: [
@@ -53,22 +59,26 @@ var app_module = {
 		SessionListComponent,
 		DurationPipe,
 		Error404Component,
-		CollapsibleWellComponent
+		CollapsibleWellComponent,
+		SimpleModalComponent,
+		ModalTriggerDirective
 	],
 	providers: [
 		EventService,
+		EventRouteActivatorService,
+		EventListResolverService,
+		UserService,
 		{
 			provide: TOASTR_TOKEN,
 			useValue: toastr
 		},
-		EventRouteActivatorService,
-		EventListResolverService,
-		UserService
+		{
+			provide: JQUERY_TOKEN,
+			useValue: jQuery
+		}
 	],
 	bootstrap: [AppComponent]
 };
-
-declare let toastr: Toastr;
 
 @NgModule(app_module)
 export class AppModule

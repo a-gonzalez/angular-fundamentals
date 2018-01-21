@@ -11,10 +11,10 @@ li > .active
 
 #searchForm
 {
-	margin-right: 100px;
+	margin-right: 50px;
 }
 
-@media (max-width: 1200px)
+@media (max-width: 800px)
 {
 	#searchForm
 	{

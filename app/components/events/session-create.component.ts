@@ -1,8 +1,8 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter, Inject } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 
-import { ToastService } from "../services/index";
+import { Toastr, TOASTR_TOKEN } from "../services/index";
 
 import { ISession } from "../models/session.interface";
 
@@ -24,7 +24,7 @@ export class SessionCreateComponent implements OnInit
 	public level: FormControl;
 	public abstract: FormControl;
 
-	constructor(private router: Router, private toast: ToastService)
+	constructor(private router: Router, @Inject(TOASTR_TOKEN) private toast: Toastr)
 	{
 		console.info("SessionCreateComponent ctor");
 	}
@@ -66,7 +66,7 @@ export class SessionCreateComponent implements OnInit
 		console.log(session);
 
 		this.newsession.emit(session);
-		//this.toast.warning("This has not beem implemented.", "Save");
+		this.toast.success("Session has been saved.", "Save");
 	}
 
 	private restricted(words)

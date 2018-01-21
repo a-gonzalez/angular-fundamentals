@@ -1,6 +1,10 @@
 import { Component } from "@angular/core";
 
+import { EventService } from "../services/event.service";
 import { UserService } from "../services/user.service";
+
+import { ISession } from "../models/session.interface";
+import { SessionListComponent } from "../index";
 
 let navigation_component = {
 	selector: "navigation-bar",
@@ -11,8 +15,22 @@ let navigation_component = {
 @Component(navigation_component)
 export class  NavigationComponent
 {
-	constructor(private auth: UserService)
+	private term: string = "";
+	private sessions_found: ISession[];
+
+	constructor(private auth: UserService, private service: EventService)
 	{
 		console.info("NavigationComponent ctor");
+	}
+
+	private search(term: string)
+	{
+		this.service.searchSessions(term)
+		.subscribe(sessions => 
+		{
+			this.sessions_found = sessions;
+
+			//console.log(this.sessions_found);
+		});
 	}
 }
