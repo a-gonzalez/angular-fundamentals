@@ -1,7 +1,9 @@
 import { Component } from "@angular/core";
 
-import { EventService } from "../services/event.service";
-import { UserService } from "../services/user.service";
+import {
+	EventService,
+	UserService
+} from "../services/index";
 
 import { ISession } from "../models/session.interface";
 import { SessionListComponent } from "../index";

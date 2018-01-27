@@ -4,8 +4,9 @@ import { Subject, Observable } from "rxjs/Rx";
 
 import { SessionListComponent } from "../index";
 
-import { IEvent } from "../models/event.interface";
-import { ISession } from "../models/session.interface";
+import {
+	IEvent,
+	ISession } from "../models/index";
 
 @Injectable()
 export class EventService
