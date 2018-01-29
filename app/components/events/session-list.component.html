@@ -1,4 +1,7 @@
 <div class="row" *ngFor="let session of sessions_filtered">
+	<div class="col-md-1">
+		<up-vote (vote)="vote(session)" [count]="session.voters.length" [voted]="voted(session)"></up-vote>
+	</div>
 	<div class="col-md-10">
 		<collapsible-well>
 			<div well-title>

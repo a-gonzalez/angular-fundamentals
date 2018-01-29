@@ -131,7 +131,7 @@ const EVENTS: IEvent[] = [
 		  your users devices before they even hit your site using the 
 		  new predictive algorithms and thought reading software 
 		  built into Angular 4.`,
-		  voters: []
+		  voters: ["agonzalez"]
 		},
 		{
 		  id: 4,
@@ -213,7 +213,7 @@ const EVENTS: IEvent[] = [
 		  secret to being awesome, and how he became the President 
 		  of the United States through his amazing programming skills, 
 		  showing how you too can be success with just attitude.`, 
-		  voters: ['bradgreen']
+		  voters: ['bradgreen', "agonzalez"]
 		},
 	  ]
 	},

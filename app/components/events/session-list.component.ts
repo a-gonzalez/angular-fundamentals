@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from "@angular/core";
 
+import { UserService, VoterService } from "../../components/services/index";
+
 import { ISession } from "../models/session.interface";
 
 let session_list_component = {
@@ -15,7 +17,7 @@ export class SessionListComponent implements OnInit, OnChanges
 	@Input() sortBy: string;
 	sessions_filtered: ISession[] = [];
 
-	constructor()
+	constructor(private auth: UserService, private voter: VoterService)
 	{
 		console.info("SessionListComponent ctor");
 	}
@@ -31,6 +33,30 @@ export class SessionListComponent implements OnInit, OnChanges
 		{
 			this.filterSessions(this.filterBy);
 			this.sortBy === "name" ? this.sessions_filtered.sort(this.sortByNameAsc) : this.sessions_filtered.sort(this.sortByVotesDesc);
+		}
+	}
+
+	voted(session: ISession)
+	{
+		return this.voter.voted(session, this.auth.user.username);
+	}
+
+	vote(session: ISession)
+	{
+		console.log("vote...");
+
+		if (this.voted(session))
+		{
+			this.voter.delete(session, this.auth.user.username);
+		}
+		else
+		{
+			this.voter.add(session, this.auth.user.username);
+		}
+
+		if (this.sortBy === "votes")
+		{
+			this.sessions_filtered.sort(this.sortByVotesDesc);
 		}
 	}
 

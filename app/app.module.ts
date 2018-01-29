@@ -13,7 +13,8 @@ import {
 	EventDetailComponent,
 	EventCreateComponent,
 	SessionCreateComponent,
-	SessionListComponent
+	SessionListComponent,
+	UpVoteComponent
 } from "./components/index";
 
 import {
@@ -25,6 +26,7 @@ import {
 	EventListResolverService,
 	EventRouteActivatorService,
 	UserService,
+	VoterService,
 	Toastr,
 	TOASTR_TOKEN,
 	JQUERY_TOKEN
@@ -61,13 +63,15 @@ var app_module = {
 		Error404Component,
 		CollapsibleWellComponent,
 		SimpleModalComponent,
-		ModalTriggerDirective
+		ModalTriggerDirective,
+		UpVoteComponent
 	],
 	providers: [
 		EventService,
 		EventRouteActivatorService,
 		EventListResolverService,
 		UserService,
+		VoterService,
 		{
 			provide: TOASTR_TOKEN,
 			useValue: toastr
