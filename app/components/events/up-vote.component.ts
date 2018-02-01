@@ -9,9 +9,13 @@ let up_vote_component = {
 @Component(up_vote_component)
 export class UpVoteComponent
 {
-	@Input() count: number;
-	@Input() voted; boolean = false;
+	@Input() count;
+	@Input() set voted(value)
+	{
+		this.iColor = value ? "#ff0000" : "#ffffff";
+	}
 	@Output() vote = new EventEmitter();
+	public iColor: string;
 
 	constructor()
 	{
@@ -23,3 +27,5 @@ export class UpVoteComponent
 		this.vote.emit({});
 	}
 }
+//<i *ngIf="voted" class="glyphicon glyphicon-heart"></i>
+//<i *ngIf="!voted" class="glyphicon glyphicon-heart-empty"></i>

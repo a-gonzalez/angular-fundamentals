@@ -1,5 +1,7 @@
 import { Injectable, EventEmitter } from "@angular/core";
+import { Http, Response } from "@angular/http";
 import { Subject, Observable } from "rxjs/Rx";
+
 //import { setTimeout } from "core-js/library/web/timers";
 
 import { SessionListComponent } from "../index";
@@ -11,14 +13,18 @@ import {
 @Injectable()
 export class EventService
 {
-	constructor()
+	constructor(private http: Http)
 	{
 		console.info("EventService ctor");
 	}
 
 	getEvents(): Observable<IEvent[]>
 	{
-		let subject = new Subject<IEvent[]>();
+		return this.http.get("/api/events").map((response: Response) =>
+		{
+			return <IEvent[]>response.json();
+		}).catch(this.ErrorHandler);
+		/*let subject = new Subject<IEvent[]>();
 
 		setTimeout(() =>
 		{
@@ -26,14 +32,20 @@ export class EventService
 			subject.complete();
 		}, 200);
 
-		return subject;
+		return subject;*/
 	}
 
-	getEvent(id: number): IEvent
+	getEvent(id: number): Observable<IEvent>
 	{
 		console.log("EventService -> getEvent -> id: ", id);
 
-		return EVENTS.find(event => event.id === id);
+		let url: string = "/api/events/".concat(id);
+
+		return this.http.get(url).map((response: Response) =>
+		{
+			return <IEvent>response.json();
+		}).catch(this.ErrorHandler);
+		//return EVENTS.find(event => event.id === id);
 	}
 
 	save(event)
@@ -80,13 +92,20 @@ export class EventService
 
 		return emitter;
 	}
+
+	ErrorHandler(error: Response)
+	{
+		console.log("Error: ", error);
+
+		return Observable.throw(error.statusText);
+	}
 }
 
 const EVENTS: IEvent[] = [
 	{
 	  id: 1,
-	  name: 'Angular Connect',
-	  date: new Date('9/26/2036'),
+	  name: 'Angular Connect A',
+	  date: new Date('9/26/2018'),
 	  time: '10:00 am',
 	  price: 599.99,
 	  imageUrl: '/app/assets/images/angularconnect-shield.png',
@@ -163,7 +182,7 @@ const EVENTS: IEvent[] = [
 	},
 	{
 	  id: 2,
-	  name: 'ng-nl',
+	  name: 'ng-nl B',
 	  date: new Date('4/15/2037'),
 	  time: '9:00 am',
 	  price: 950.00,
@@ -219,7 +238,7 @@ const EVENTS: IEvent[] = [
 	},
 	{
 	  id: 3,
-	  name: 'ng-conf 2037',
+	  name: 'ng-conf 2037 C',
 	  date: new Date('5/4/2037'),
 	  time: '9:00 am',
 	  price: 759.00,
@@ -301,7 +320,7 @@ const EVENTS: IEvent[] = [
 	},
 	{
 	  id: 4,
-	  name: 'UN Angular Summit',
+	  name: 'UN Angular Summit D',
 	  date: new Date('6/10/2037'),
 	  time: '8:00 am',
 	  price: 800.00,
@@ -350,7 +369,7 @@ const EVENTS: IEvent[] = [
 	},
 	{
 	  id: 5,
-	  name: 'ng-vegas',
+	  name: 'ng-vegas E',
 	  date: new Date('2/10/2037'),
 	  time: '9:00 am',
 	  price: 400.00,

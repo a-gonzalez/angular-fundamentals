@@ -10,7 +10,7 @@ export class VoterService
 		console.info("VoterService ctor");
 	}
 
-	delete(session: ISession, username: string)
+	remove(session: ISession, username: string)
 	{
 		session.voters = session.voters.filter(voter => voter !== username);
 	}

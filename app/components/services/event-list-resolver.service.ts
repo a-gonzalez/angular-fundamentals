@@ -13,6 +13,7 @@ export class EventListResolverService implements Resolve<any>
 
 	resolve()
 	{
-		return this.service.getEvents().map(events => events);
+		//return this.service.getEvents().map(events => events);
+		return this.service.getEvents();
 	}
 }

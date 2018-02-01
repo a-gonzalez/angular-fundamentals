@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { HttpModule } from "@angular/http";
 import { RouterModule } from "@angular/router";
 
 import { APP_ROUTES } from "./app.routes";
@@ -38,7 +39,10 @@ import {
 
 import { CollapsibleWellComponent } from "./components/collapsible-well.component";
 import { SimpleModalComponent } from "./components/simple-modal.component";
-import { ModalTriggerDirective } from "./components/directives/modal-trigger.directive";
+import {
+	ModalTriggerDirective,
+	ValidateLocation
+} from "./components/directives/index";
 
 declare let toastr: Toastr;
 declare let jQuery: Object;
@@ -47,6 +51,7 @@ var app_module = {
 	imports: [
 		BrowserModule,
 		FormsModule,
+		HttpModule,
 		ReactiveFormsModule,
 		RouterModule.forRoot(APP_ROUTES)
 	],
@@ -64,6 +69,7 @@ var app_module = {
 		CollapsibleWellComponent,
 		SimpleModalComponent,
 		ModalTriggerDirective,
+		ValidateLocation,
 		UpVoteComponent
 	],
 	providers: [

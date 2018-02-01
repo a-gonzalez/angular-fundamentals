@@ -30,8 +30,12 @@ export class EventDetailComponent implements OnInit
 	{
 		this.router.params.forEach((params: Params) =>
 		{
-			this.event = this.service.getEvent(+params["id"]);
-			this.addMode = false;
+			this.service.getEvent(+params["id"]).subscribe((event: IEvent) =>
+			{
+				this.event = event;
+				this.addMode = false;
+			});
+			//this.event = this.service.getEvent(+params["id"]);
 		});
 		/*let id: number = this.router.snapshot.params["id"];
 

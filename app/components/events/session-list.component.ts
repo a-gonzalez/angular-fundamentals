@@ -43,11 +43,11 @@ export class SessionListComponent implements OnInit, OnChanges
 
 	vote(session: ISession)
 	{
-		console.log("vote...");
+		//console.log("vote...");
 
 		if (this.voted(session))
 		{
-			this.voter.delete(session, this.auth.user.username);
+			this.voter.remove(session, this.auth.user.username);
 		}
 		else
 		{
