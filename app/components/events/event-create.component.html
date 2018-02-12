@@ -25,7 +25,7 @@
       <input (ngModel)="price" name="price" required id="eventPrice" type="text" type="number" class="form-control" placeholder="event price..." />
     </div>
     
-    <div ngModelGroup="location" #locationGroup="ngModelGroup" validateLocation>
+    <div ngModelGroup="location" #locationGroup="ngModelGroup">
       <div class="form-group">
         <label for="address">Location:</label>
         <em *ngIf="locationGroup?.invalid && locationGroup?.touched">You must enter a complete address or online-URL</em>

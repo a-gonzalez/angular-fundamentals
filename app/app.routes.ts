@@ -1,13 +1,19 @@
 import { Routes } from "@angular/router";
 
-import { EventListComponent } from "./components/events/event-list.component";
-import { EventDetailComponent } from "./components/events/event-detail.component";
-import { EventCreateComponent } from "./components/events/event-create.component";
-import { SessionCreateComponent } from "./components/events/session-create.component";
+import {
+	EventListComponent,
+	EventDetailComponent,
+	EventCreateComponent,
+	SessionCreateComponent
+} from "./components/events/index";
+
 import { Error404Component } from "./components/errors/404.component";
 
-import { EventRouteActivatorService } from "./components/services/event-route-activator.service";
-import { EventListResolverService } from "./components/services/event-list-resolver.service";
+//import { EventRouteActivatorService } from "./components/services/event-route-activator.service";
+import {
+	EventListResolverService,
+	EventResolverService
+} from "./components/services/index";
 
 export const APP_ROUTES: Routes = [
 	{
@@ -24,7 +30,10 @@ export const APP_ROUTES: Routes = [
 	{
 		path: "events/:id",
 		component: EventDetailComponent,
-		canActivate: [EventRouteActivatorService]
+		//canActivate: [EventRouteActivatorService]
+		resolve: {
+			event: EventResolverService
+		}
 	},
 	{
 		path: "events/session/new",

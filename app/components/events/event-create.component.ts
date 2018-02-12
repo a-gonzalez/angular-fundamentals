@@ -2,8 +2,11 @@ import { Component, OnInit, Inject } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { Router } from "@angular/router";
 
-import { Toastr, TOASTR_TOKEN } from "../../components/services/index";
-import { EventService } from "../../components/services/event.service";
+import {
+	EventService,
+	Toastr,
+	TOASTR_TOKEN
+} from "../../components/services/index";
 
 import { IEvent } from "../models/event.interface";
 
@@ -49,9 +52,11 @@ export class EventCreateComponent implements OnInit
 
 	save(values)
 	{
-		this.service.save(values);
-		this.isDirty = false;
-		this.toast.success("Event was saved successfully.", "Save");
-		this.router.navigate(["events"]);
+		this.service.save(values).subscribe(event =>
+		{
+			this.isDirty = false;
+			this.toast.success("Event was saved successfully.", "Save");
+			this.router.navigate(["events"]);
+		});
 	}
 }

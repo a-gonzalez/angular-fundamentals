@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 
 import {
 	EventService,
-	UserService
+	AuthenticationService
 } from "../services/index";
 
 import { ISession } from "../models/session.interface";
@@ -20,7 +20,7 @@ export class  NavigationComponent
 	private term: string = "";
 	private sessions_found: ISession[];
 
-	constructor(private auth: UserService, private service: EventService)
+	constructor(private auth: AuthenticationService, private service: EventService)
 	{
 		console.info("NavigationComponent ctor");
 	}

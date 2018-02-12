@@ -25,8 +25,9 @@ import {
 import {
 	EventService,
 	EventListResolverService,
-	EventRouteActivatorService,
-	UserService,
+	//EventRouteActivatorService,
+	EventResolverService,
+	AuthenticationService,
 	VoterService,
 	Toastr,
 	TOASTR_TOKEN,
@@ -74,9 +75,10 @@ var app_module = {
 	],
 	providers: [
 		EventService,
-		EventRouteActivatorService,
+		//EventRouteActivatorService,
 		EventListResolverService,
-		UserService,
+		EventResolverService,
+		AuthenticationService,
 		VoterService,
 		{
 			provide: TOASTR_TOKEN,

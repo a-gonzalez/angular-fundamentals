@@ -5,7 +5,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import {
 	TOASTR_TOKEN,
 	Toastr,
-	UserService
+	AuthenticationService
 } from "../../components/services/index";
 //import { UserService } from "../../components/services/user.service";
 
@@ -22,7 +22,7 @@ export class UserProfileComponent implements OnInit
 	private lastname: FormControl;
 	private firstname: FormControl;
 
-	constructor(private router: Router, @Inject(TOASTR_TOKEN) private toast: Toastr, private auth: UserService)
+	constructor(private router: Router, @Inject(TOASTR_TOKEN) private toast: Toastr, private auth: AuthenticationService)
 	{
 		console.info("UserProfileComponent ctor");
 	}
@@ -32,8 +32,8 @@ export class UserProfileComponent implements OnInit
 		console.info("UserProfileComponent init");
 		//console.log(this.auth.user);
 
-		this.firstname = new FormControl(this.auth.user.firstname, [Validators.required, Validators.pattern("^[A-Z].*")]);
-		this.lastname = new FormControl(this.auth.user.lastname, [Validators.required, Validators.pattern("^[A-Z].*")]);
+		this.firstname = new FormControl(this.auth.user.firstName, [Validators.required, Validators.pattern("^[A-Z].*")]);
+		this.lastname = new FormControl(this.auth.user.lastName, [Validators.required, Validators.pattern("^[A-Z].*")]);
 		this.profileform = new FormGroup({
 			firstname: this.firstname,
 			lastname: this.lastname
@@ -45,13 +45,25 @@ export class UserProfileComponent implements OnInit
 		this.router.navigate(["events"]);
 	}
 
+	logout()
+	{
+		this.auth.logout().subscribe(() =>
+		{
+			let url: string = "/user/login";
+			
+			this.router.navigate([url]);
+		});
+	}
+
 	save(values)
 	{
 		if (this.profileform.valid)
 		{
-			this.auth.update(values.firstname, values.lastname);
-			this.toast.success("Profile has been updated.", "Save");
-			this.router.navigate(["events"]);
+			this.auth.update(values.firstname, values.lastname).subscribe(() =>
+			{
+				this.toast.success("Profile has been updated.", "Save");
+				this.router.navigate(["events"]);
+			});
 		}
 		else
 		{

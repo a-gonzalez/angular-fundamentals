@@ -2,7 +2,6 @@ import { Router, ActivatedRouteSnapshot, CanActivate } from "@angular/router";
 import { Injectable } from "@angular/core";
 
 import { EventService } from "../services/event.service";
-import { RouterModule } from "@angular/router/src/router_module";
 
 @Injectable()
 export class EventRouteActivatorService implements CanActivate
@@ -14,8 +13,9 @@ export class EventRouteActivatorService implements CanActivate
 
 	canActivate(route: ActivatedRouteSnapshot)
 	{
-		const exists = this.service.getEvent(+route.params["id"]);
+		let id: number = route.params["id"];
 		let active: boolean = true;
+		const exists = this.service.getEvent(id);
 
 		if (!exists)
 		{

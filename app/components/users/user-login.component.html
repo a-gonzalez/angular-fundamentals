@@ -16,4 +16,8 @@
     <button type="submit" [disabled]="loginform.invalid" class="btn btn-primary" (click)="login()">Login</button>
     <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
   </form>
+  <br />
+  <div *ngIf="failed" class="alert alert-danger">
+    Authentication Failed
+  </div>
 </div>

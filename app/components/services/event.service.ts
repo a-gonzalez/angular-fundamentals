@@ -1,14 +1,13 @@
 import { Injectable, EventEmitter } from "@angular/core";
-import { Http, Response } from "@angular/http";
+import { Http, Response, Request, Headers, RequestOptions } from "@angular/http";
 import { Subject, Observable } from "rxjs/Rx";
-
-//import { setTimeout } from "core-js/library/web/timers";
 
 import { SessionListComponent } from "../index";
 
 import {
 	IEvent,
-	ISession } from "../models/index";
+	ISession
+} from "../models/index";
 
 @Injectable()
 export class EventService
@@ -20,7 +19,9 @@ export class EventService
 
 	getEvents(): Observable<IEvent[]>
 	{
-		return this.http.get("/api/events").map((response: Response) =>
+		let url: string = "/api/events";
+
+		return this.http.get(url).map((response: Response) =>
 		{
 			return <IEvent[]>response.json();
 		}).catch(this.ErrorHandler);
@@ -39,7 +40,7 @@ export class EventService
 	{
 		console.log("EventService -> getEvent -> id: ", id);
 
-		let url: string = "/api/events/".concat(id);
+		let url: string = "/api/events/" + id.toString();
 
 		return this.http.get(url).map((response: Response) =>
 		{
@@ -48,31 +49,45 @@ export class EventService
 		//return EVENTS.find(event => event.id === id);
 	}
 
-	save(event)
+	save(event): Observable<IEvent>
 	{
-		let id: number = Math.max.apply(null, EVENTS.map(e => e.id));
-
-		event.id = id + 1;
-		event.sessions = [];
-		EVENTS.push(event);
-
 		console.log("EventService -> save: ", event);
+
+		//let id: number = Math.max.apply(null, EVENTS.map(e => e.id));
+
+		let headers = new Headers({"Content-Type": "application/json"});
+		let url: string = "/api/events";
+		let options = new RequestOptions({headers: headers, url: url});
+
+		return this.http.post(url, JSON.stringify(event), options).map((response: Response) =>
+		{
+			return response.json();
+		}).catch(this.ErrorHandler);
+		/*event.id = id + 1;
+		event.sessions = [];
+		EVENTS.push(event);*/
 	}
 
-	update(event)
+	/*update(event)
 	{
 		let index = EVENTS.findIndex(e => e.id == event.id);
 
 		EVENTS[index] = event;
-	}
+	}*/
 
-	searchSessions(term: string): Observable<ISession[]>
+	searchSessions(term: string)
 	{
-		var results: ISession[] = [];
+		let url: string = "/api/sessions/search?search=" + term;
 
-		EVENTS.forEach(event =>
+		return this.http.get(url).map((response: Response) =>
 		{
-			var matches = event.sessions.filter(session =>
+			return response.json();
+		}).catch(this.ErrorHandler);
+		/*let results: ISession[] = [];
+
+		EVENTS.forEach(event => 
+		{
+			let matches = event.sessions.filter(session =>
 				session.name.toLocaleLowerCase().indexOf(term.toLocaleLowerCase()) > -1);
 
 			matches = matches.map((session: any) =>
@@ -83,25 +98,25 @@ export class EventService
 			});
 			results = results.concat(matches);
 		});
-		var emitter = new EventEmitter(true);
+		let emitter = new EventEmitter(true);
 		
 		setTimeout(() =>
 		{
 			emitter.emit(results);
 		}, 200);
 
-		return emitter;
+		return emitter;*/
 	}
 
 	ErrorHandler(error: Response)
 	{
-		console.log("Error: ", error);
+		console.log("ErrorHandler: ", error);
 
 		return Observable.throw(error.statusText);
 	}
 }
 
-const EVENTS: IEvent[] = [
+/*const EVENTS: IEvent[] = [
 	{
 	  id: 1,
 	  name: 'Angular Connect A',
@@ -406,4 +421,4 @@ const EVENTS: IEvent[] = [
 		}
 	  ]
 	}
-];
+];*/

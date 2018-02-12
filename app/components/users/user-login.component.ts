@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import {
 	TOASTR_TOKEN,
 	Toastr,
-	UserService
+	AuthenticationService
 } from "../../components/services/index";
 
 let user_login_component = {
@@ -16,7 +16,9 @@ let user_login_component = {
 @Component(user_login_component)
 export class UserLoginComponent
 {
-	constructor(@Inject(TOASTR_TOKEN) private toast: Toastr, private router: Router, private auth: UserService)
+	private failed: boolean = false;
+
+	constructor(@Inject(TOASTR_TOKEN) private toast: Toastr, private router: Router, private auth: AuthenticationService)
 	{
 		console.info("UserLoginComponent ctor");
 	}
@@ -32,17 +34,21 @@ export class UserLoginComponent
 		{
 			console.log(values);
 
-			this.auth.login(values.username, values.password);
+			this.auth.login(values.username, values.password).subscribe(response =>
+			{
+				console.log("login result: ", response);
 
-			if (this.auth.isAuthenticated())
-			{
-				this.toast.success("User has been authenticated.", "Login");
-				this.router.navigate(["events"]);
-			}
-			else
-			{
-				//this.toast.error("User was not authenticated.", "Login");
-			}
+				if (response != false)
+				{
+					this.toast.success("User has been authenticated.", "Login");
+					this.router.navigate(["events"]);
+				}
+				else
+				{
+					this.toast.error("User was not authenticated.", "Login");
+					this.failed = true;
+				}
+			});
 		}
 	}
 }

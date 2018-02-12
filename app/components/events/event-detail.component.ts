@@ -1,10 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 
-import { IEvent } from "../models/event.interface";
+import {
+	IEvent,
+	ISession
+} from "../models/index";
 
 import { EventService } from "../../components/services/event.service";
-import { ISession } from "../models/session.interface";
 import { SessionListComponent } from "../index";
 
 let event_detail_component = {
@@ -21,20 +23,25 @@ export class EventDetailComponent implements OnInit
 	filterBy: string = "all";
 	sortBy: string = "name";
 
-	constructor(private router: ActivatedRoute, private service: EventService)
+	constructor(private route: ActivatedRoute, private service: EventService)
 	{
 		console.info("EventDetailComponent ctor");
 	}
 
 	ngOnInit()
 	{
-		this.router.params.forEach((params: Params) =>
+		//this.route.params.forEach((params: Params) =>
+		this.route.data.forEach((data) =>
 		{
-			this.service.getEvent(+params["id"]).subscribe((event: IEvent) =>
+			this.event = data["event"]; //this.route.snapshot.data["event"];
+			this.addMode = false;
+			/*let id: number = params["id"];
+
+			this.service.getEvent(id).subscribe((event: IEvent) =>
 			{
 				this.event = event;
 				this.addMode = false;
-			});
+			});*/
 			//this.event = this.service.getEvent(+params["id"]);
 		});
 		/*let id: number = this.router.snapshot.params["id"];
@@ -65,9 +72,11 @@ export class EventDetailComponent implements OnInit
 
 		this.event.sessions.push(session);
 
-		this.service.update(this.event);
-
-		this.addMode = false;
+		this.service.save(this.event).subscribe(event =>
+		{
+			this.addMode = false;
+		});
+		//this.addMode = false;
 	}
 
 	filter(by: string)
